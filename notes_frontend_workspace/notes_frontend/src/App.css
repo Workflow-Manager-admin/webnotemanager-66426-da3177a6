@@ -30,12 +30,13 @@ body[data-theme="dark"] {
 }
 
 body[data-theme="dark"] {
-  /* Soft deep blue-to-accent gradient for dark mode */
+  /* Visually bold and saturated deep purple-to-accent gradient for dark mode */
   background: linear-gradient(
-    135deg,
-    #202534 0%,
-    #262d41 55%,
-    var(--accent) 130%
+    120deg,
+    #161928 0%,
+    #292e52 30%,
+    #493679 60%,
+    #ffb347 120%
   );
   color: var(--text-color);
 }
@@ -43,12 +44,13 @@ body[data-theme="dark"] {
 body {
   margin: 0;
   padding: 0;
-  /* Light theme: blue-to-orange pastel gradient, subtle background */
+  /* Light theme: Visually bold blue-to-orange gradient, sharp and saturated */
   background: linear-gradient(
-    135deg,
+    120deg,
     #e3ecff 0%,
-    #f7f7f9 55%,
-    var(--accent) 130%
+    #79b9ff 28%,
+    #ffd682 65%,
+    #ff9800 120%
   );
   color: var(--text-color);
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
