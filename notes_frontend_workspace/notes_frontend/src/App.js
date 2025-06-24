@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 // PUBLIC_INTERFACE
@@ -16,6 +16,31 @@ function App() {
   const [selectedId, setSelectedId] = useState(notes[0].id);
   const [isEditing, setIsEditing] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
+
+  // Theme management
+  const getPreferredTheme = () => {
+    // Try localStorage, fall back to system, default "light"
+    if (window.localStorage) {
+      const stored = localStorage.getItem("theme");
+      if (stored) return stored;
+    }
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
+      return "dark";
+    return "light";
+  };
+  const [theme, setTheme] = useState(getPreferredTheme());
+
+  // On theme change, update data-theme attribute and store preference
+  useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+    if (window.localStorage) {
+      localStorage.setItem("theme", theme);
+    }
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  }
 
   // Handlers
   // PUBLIC_INTERFACE
@@ -94,6 +119,8 @@ function App() {
         onMenuToggle={() => setShowSidebar((v) => !v)}
         onNew={handleCreate}
         canNew={true}
+        theme={theme}
+        onThemeToggle={toggleTheme}
       />
       <div className="notes-main-container">
         <Sidebar
@@ -133,8 +160,12 @@ function App() {
   );
 }
 
-// PUBLIC_INTERFACE
-function TopBar({ onMenuToggle, onNew, canNew }) {
+/**
+ * PUBLIC_INTERFACE
+ * TopBar component renders the navigation bar with menu toggle, brand/logo, new note button, and theme toggle icon.
+ */
+function TopBar({ onMenuToggle, onNew, canNew, theme, onThemeToggle }) {
+  const isDark = theme === "dark";
   return (
     <nav className="notes-topbar" role="banner">
       <span className="notes-menu-btn" onClick={onMenuToggle} tabIndex={0} aria-label="Toggle Sidebar">
@@ -146,15 +177,35 @@ function TopBar({ onMenuToggle, onNew, canNew }) {
         </span>
         Notes
       </span>
-      <button
-        className="btn notes-primary"
-        onClick={onNew}
-        title="Create note"
-        aria-label="Create note"
-        disabled={!canNew}
-      >
-        ＋
-      </button>
+      <span style={{ display: "flex", gap: 8 }}>
+        <button
+          className="notes-theme-toggle"
+          title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          onClick={onThemeToggle}
+          type="button"
+        >
+          {/* Sun/moon icon (accessible) */}
+          {isDark ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style={{ fill: "#F9D949" }}>
+              <path d="M6.76 4.84l-1.8-1.79-1.42 1.42 1.79 1.8 1.43-1.43zm10.45 10.45l1.8 1.79 1.42-1.42-1.79-1.8-1.43 1.43zM12 4V1h-1v3h1zm0 19v-3h1v3h-1zm8-7h3v-1h-3v1zm-19 0h3v-1H1v1zm15.24-6.16l1.8-1.79-1.42-1.42-1.79 1.8 1.41 1.41zm-10.45 10.45l-1.8 1.79 1.42 1.42 1.79-1.8-1.41-1.41zM12 7a5 5 0 100 10 5 5 0 000-10z"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style={{ fill: "#666" }}>
+              <path d="M9.37 5.51A7 7 0 0020 12.12c0 3.71-3 6.72-6.69 6.88A7 7 0 019.37 5.51zM12 3c-.34 0-.67.02-1 .05A9 9 0 1021 13c.03-.33.05-.66.05-1A9 9 0 0012 3z"/>
+            </svg>
+          )}
+        </button>
+        <button
+          className="btn notes-primary"
+          onClick={onNew}
+          title="Create note"
+          aria-label="Create note"
+          disabled={!canNew}
+        >
+          ＋
+        </button>
+      </span>
     </nav>
   );
 }

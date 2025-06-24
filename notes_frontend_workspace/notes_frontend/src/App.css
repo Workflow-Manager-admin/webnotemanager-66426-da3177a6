@@ -13,6 +13,27 @@
   --border-color: #e8eaf1;
 }
 
+/* DARK THEME - root variables will be overridden when data-theme=dark on body */
+body[data-theme="dark"] {
+  --primary: #90caf9;             /* lighter blue for contrast */
+  --secondary: #b0b8c1;
+  --accent: #ffb347;
+  --notes-bg: #181c25;
+  --notes-sidebar-bg: #202534;
+  --notes-sidebar-border: #23263c;
+  --notes-main-border: #25293e;
+  --notes-main-title: #f7f8fc;
+  --notes-shadow: 0 4px 18px 0 rgba(7, 12, 28, 0.47);
+  --text-color: #ebedf4;
+  --text-secondary: #b0b8c9;
+  --border-color: #232845;
+}
+
+body[data-theme="dark"] {
+  background: var(--notes-bg);
+  color: var(--text-color);
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -23,6 +44,131 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ----------- DARK THEME STRUCTURAL STYLES ------------ */
+body[data-theme="dark"] .notes-app-root {
+  background: var(--notes-bg);
+}
+body[data-theme="dark"] .notes-topbar {
+  background: #23253a;
+  color: var(--primary);
+  border-bottom: 1px solid var(--notes-main-border);
+  box-shadow: var(--notes-shadow);
+}
+body[data-theme="dark"] .notes-title-logo {
+  color: var(--primary);
+}
+body[data-theme="dark"] .notes-logo {
+  color: var(--accent);
+}
+body[data-theme="dark"] .notes-menu-btn {
+  color: var(--primary);
+}
+
+body[data-theme="dark"] .notes-sidebar {
+  background: var(--notes-sidebar-bg);
+  border-right: 1px solid var(--notes-sidebar-border);
+  box-shadow: 2px 0 8px 0 rgba(12,24,60,0.09);
+}
+body[data-theme="dark"] .notes-sidebar-header {
+  background: #23263c;
+  color: var(--primary);
+  border-bottom: 1.5px solid var(--notes-sidebar-border);
+}
+body[data-theme="dark"] .notes-list li {
+  background: transparent;
+  color: var(--text-color);
+  border-bottom: 1px solid #222733;
+}
+body[data-theme="dark"] .notes-list li.selected,
+body[data-theme="dark"] .notes-list li:focus,
+body[data-theme="dark"] .notes-list li:hover {
+  background: #262d41;
+  color: var(--primary);
+}
+body[data-theme="dark"] .notes-delete-btn {
+  color: var(--secondary);
+  background: none;
+}
+body[data-theme="dark"] .notes-delete-btn:hover {
+  color: #fff;
+  background: #d95e5e;
+}
+
+body[data-theme="dark"] .notes-main-content {
+  background: var(--notes-bg);
+}
+body[data-theme="dark"] .notes-detail,
+body[data-theme="dark"] .notes-editor {
+  background: #23253a;
+  border: 1.5px solid var(--notes-main-border);
+  box-shadow: var(--notes-shadow);
+}
+body[data-theme="dark"] .notes-detail-title {
+  color: var(--notes-main-title);
+}
+body[data-theme="dark"] .notes-detail-meta {
+  color: #818796;
+}
+body[data-theme="dark"] .notes-detail-content {
+  color: var(--text-color);
+}
+body[data-theme="dark"] .notes-editor input,
+body[data-theme="dark"] .notes-editor textarea {
+  background: #252939;
+  color: #f3f4fa;
+  border: 1.1px solid var(--notes-main-border);
+}
+body[data-theme="dark"] .notes-editor input:focus,
+body[data-theme="dark"] .notes-editor textarea:focus {
+  border: 1.8px solid var(--primary);
+  outline: none;
+}
+
+/* Button overrides for dark */
+body[data-theme="dark"] .btn.notes-primary {
+  background: var(--primary);
+  color: #1a2233;
+}
+body[data-theme="dark"] .btn.notes-primary:hover:enabled,
+body[data-theme="dark"] .btn.notes-primary:not(:disabled):hover {
+  background: #41a2f4;
+  color: #090e19;
+}
+body[data-theme="dark"] .btn.notes-secondary {
+  background: #383b4a;
+  color: #e4e9ee;
+}
+body[data-theme="dark"] .btn.notes-secondary:hover:enabled {
+  background: #23263c;
+}
+body[data-theme="dark"] .btn.notes-accent {
+  background: var(--accent);
+  color: #10151d;
+}
+body[data-theme="dark"] .btn.notes-accent:hover:enabled {
+  background: #ffbc47;
+  color: #181c25;
+}
+
+/* Theme toggle button (topbar) */
+.notes-theme-toggle {
+  background: none;
+  border: none;
+  margin-right: 4px;
+  padding: 4px 6px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 4px;
+  color: var(--primary);
+  outline: none;
+}
+.notes-theme-toggle:focus,
+.notes-theme-toggle:hover {
+  background: rgba(25, 118, 210, 0.13);
+}
+
 .notes-app-root {
   min-height: 100vh;
   display: flex;
@@ -340,4 +486,10 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #eaeef8;
   border-radius: 6px;
+}
+body[data-theme="dark"] ::-webkit-scrollbar {
+  background: #202432;
+}
+body[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #353950;
 }
