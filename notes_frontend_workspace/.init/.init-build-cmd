@@ -1,0 +1,4 @@
+{
+    "command": "npm install && npx tsc --noEmit && npm test -- --ci",
+    "working_directory": "/home/kavia/workspace/code-generation/webnotemanager-66426-da3177a6/notes_frontend_workspace/notes_frontend"
+}
