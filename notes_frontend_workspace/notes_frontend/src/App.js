@@ -114,7 +114,7 @@ function App() {
   const selectedNote = notes.find((n) => n.id === selectedId);
 
   return (
-    <div className="notes-app-root" style={{ background: "var(--notes-bg, #f7f7f9)", minHeight: "100vh" }}>
+    <div className="notes-app-root" style={{ minHeight: "100vh" }}>
       <TopBar
         onMenuToggle={() => setShowSidebar((v) => !v)}
         onNew={handleCreate}

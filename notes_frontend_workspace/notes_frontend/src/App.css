@@ -30,14 +30,26 @@ body[data-theme="dark"] {
 }
 
 body[data-theme="dark"] {
-  background: var(--notes-bg);
+  /* Soft deep blue-to-accent gradient for dark mode */
+  background: linear-gradient(
+    135deg,
+    #202534 0%,
+    #262d41 55%,
+    var(--accent) 130%
+  );
   color: var(--text-color);
 }
 
 body {
   margin: 0;
   padding: 0;
-  background: var(--notes-bg);
+  /* Light theme: blue-to-orange pastel gradient, subtle background */
+  background: linear-gradient(
+    135deg,
+    #e3ecff 0%,
+    #f7f7f9 55%,
+    var(--accent) 130%
+  );
   color: var(--text-color);
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-size: 16px;
